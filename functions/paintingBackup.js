@@ -1,43 +1,28 @@
 
-import { addPixelInPaintingObject, addPixelInPaintings } from "./operationsWithPixel.js"
+import { addPixelInPaintings } from "./operationsWithPixel.js"
 
-export function updatePaintingWithBackup(paintingArray, painting, paintingBackup){
+export function savePainting(paintingArray){
 
-    for( let pixel of paintingBackup ){
-
-        addPixelInPaintings(pixel, paintingArray, painting)
-
-    }
+    localStorage.painting = JSON.stringify(paintingArray)
 
 }
 
-export function updateBackupWithPainting(paintingBackup, paintingArray){
+export function updatePaintingsWithBackup(paintingArray, painting){
 
-    for( let pixel of paintingArray ){
+    try{
 
-        addPixelInPaintingObject(pixel, paintingBackup)
+        const paintingBackup = localStorage.painting
+
+        for( let pixel of JSON.parse(paintingBackup) ){
+
+            addPixelInPaintings(pixel, paintingArray, painting)
+        
+        }
+
+    }catch{
+
+        console.log(`No paint backup`)
 
     }
-
-    /**const fs = require('fs');
-
-    const fileName = '../jsons/pixels.json';
-
-    const file = require(fileName);
-
-    file.key = "new value";
-
-    fs.writeFile(fileName, JSON.stringify(file), function writeJSON(err) {
-
-      if (err) return console.log(err);
-
-      console.log(JSON.stringify(file));
-
-      console.log('writing to ' + fileName);
-
-      
-
-    })**/
-
+    
 }
-

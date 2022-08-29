@@ -13,9 +13,6 @@ export default class Pixel {
 
         this.color = color
 
-        this.width = 1
-        this.height = 1
-
         this.left = left
         this.top = top
 

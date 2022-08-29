@@ -1,3 +1,4 @@
+import { savePainting } from "./paintingBackup.js"
 
 export function addPixelInPaintings(pixel, paintingArray, painting){
 
@@ -12,6 +13,8 @@ export function addPixelInPaintingObject(pixel, paintingArray){
     removePixelSomeId (pixel, paintingArray)
 
     paintingArray.push(pixel)
+
+    savePainting(paintingArray)
 
 }
 
