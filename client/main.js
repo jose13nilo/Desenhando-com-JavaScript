@@ -1,40 +1,45 @@
 
-import Brush from "../class/Brush.js";
-import Painting from "../class/Painting.js";
-
 import body from "../components/body.js";
 
-import { brush } from "../components/brush.js";
-import { buttonDeletePaintings } from "../components/buttonDeletePaintings.js";
+import { buttonResetPainting } from "../components/buttonResetPainting.js";
 import { colorSelector } from "../components/colorSelector.js";
-import { painting } from "../components/painting.js";
-import clearPaintings from "../functions/clearPainting.js";
+import { onColorsSelectorsTraceColorsBrushAndBackup } from "../events/colorSelectorTraceColorBrush.js";
 
-import { startDrawn } from "../functions/drawn.js";
-import { brushUpdateColorsBySelectors } from "../functions/operationsWinthBrush.js";
-import { updatePaintingsWithBackup } from "../functions/paintingBackup.js";
+import { onDrawnInPaintingWithBrush } from "../events/drawInPaintingWithBrush.js";
+import { onResetPaintingWithOnClick } from "../events/resetPaintingWithOnClick.js";
 
-const tela = new Painting(`main`, `gray`, 50, 50, 15)
-const pincel = new Brush(`mainPincel`)
+import { createBrush } from "../functions/operationsWinthBrush.js";
+import { createPainting } from "../functions/operationsWithPainting.js";
 
-const telaElemento = painting(tela)
+const tela = createPainting(`paintingMain`)
 
-const pincelElemento = brush(pincel)
+body.appendChild(tela)
 
-const botaoResetarTela = buttonDeletePaintings('main', tela.pixels, telaElemento)
+const pincel = createBrush(`brushMain`)
 
-updatePaintingsWithBackup(tela.pixels, telaElemento)
+body.appendChild(pincel)
 
-body.appendChild(telaElemento)
-body.appendChild(pincelElemento)
-body.appendChild(botaoResetarTela)
+onDrawnInPaintingWithBrush(tela, pincel)
 
-const paleta = colorSelector(`mainColorSelector`, 10, 10, pincelElemento.colorMain)
-const paleta2 = colorSelector(`auxiliaryColorSelector`, 10, 50, pincelElemento.colorAuxiliary)
+const div = document.createElement(`div`)
 
-body.appendChild(paleta)
-body.appendChild(paleta2)
+div.style.position = `absolute`
 
-brushUpdateColorsBySelectors(pincelElemento, paleta, paleta2)
+div.style.left = `10px`
+div.style.top = div.style.left
 
-startDrawn(pincelElemento, tela.pixels, telaElemento)
+const botaoReset = buttonResetPainting(`buttonResetPaintingMain`)
+
+div.appendChild(botaoReset)
+
+onResetPaintingWithOnClick(tela, botaoReset)
+
+const paleta = colorSelector(`colorMain`)
+const paleta2 = colorSelector(`colorAuxiliary`)
+
+onColorsSelectorsTraceColorsBrushAndBackup(pincel, paleta, paleta2)
+
+div.appendChild(paleta)
+div.appendChild(paleta2)
+
+body.appendChild(div)

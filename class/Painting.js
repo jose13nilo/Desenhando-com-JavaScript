@@ -7,10 +7,11 @@ export default class Painting{
 
         color = `white`,
 
-        width = 0,
-        height = 0,
+        side = 0,
 
-        scale = 1
+        scale = 1,
+
+        pixels = []
         
     ){
         
@@ -18,12 +19,11 @@ export default class Painting{
 
         this.color = color
 
-        this.width = width
-        this.height = height
+        this.side = side
 
         this.scale = scale
     
-        this.pixels = []
+        this.pixels = pixels
 
     }
 

@@ -1,24 +1,12 @@
-import { savePainting } from "./paintingBackup.js"
 
-export function addPixelInPaintings(pixel, paintingArray, painting){
+export function addPixelInPaintingAndInBackup(painting, pixel){
 
-    addPixelInPaintingObject(pixel, paintingArray)
-
-    addPixelInPainting(pixel, painting)
+    addPixelInPainting(painting, pixel)
+    addPixelInBackup(painting, pixel)
 
 }
 
-export function addPixelInPaintingObject(pixel, paintingArray){
-
-    removePixelSomeId (pixel, paintingArray)
-
-    paintingArray.push(pixel)
-
-    savePainting(paintingArray)
-
-}
-
-export function addPixelInPainting(pixel, painting){
+export function addPixelInPainting(painting, pixel){
 
     const context = painting.getContext(`2d`)
 
@@ -28,18 +16,32 @@ export function addPixelInPainting(pixel, painting){
 
 }
 
-export function removePixelSomeId(pixel, paintingArray){
+export function addPixelInBackup(painting, pixel){
 
-    const  index = paintingArray.findIndex( oldPixel => 
-        
-        oldPixel.id == pixel.id
+    const paintingObject = JSON.parse(localStorage.getItem(painting.id))
 
-    )
+    paintingObject.pixels = removePixelSomeId(pixel, paintingObject.pixels)
 
-    if(index>-1){
+    paintingObject.pixels.push(pixel)
 
-        paintingArray.splice(index, 1)
+    localStorage.setItem(painting.id, JSON.stringify(paintingObject))
+
+}
+
+export function removePixelSomeId(pixel, pixels){
+
+    for( let index in pixels ){
+
+        if(pixels[index].id == pixel.id){
+
+            pixels.splice(index, 1)
+
+            break
+
+        }
 
     }
+
+    return pixels
 
 }

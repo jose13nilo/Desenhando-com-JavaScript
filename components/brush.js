@@ -7,6 +7,8 @@ export function brush(brushObject){
 
     brush.id = brushObject.id
 
+    brush.isDown = brushObject.isDown
+
     brush.colorMain = brushObject.colorMain
     brush.colorAuxiliary = brushObject.colorAuxiliary
 

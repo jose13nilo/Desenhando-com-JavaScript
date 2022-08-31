@@ -1,7 +1,51 @@
 
 import { numberToPixel, pixelToNumber } from "./numbersAndPixels.js"
 import Pixel from "../class/Pixel.js"
-import { addPixelInPaintings } from "./operationsWithPixel.js"
+import { addPixelInPaintingAndInBackup } from "./operationsWithPixel.js"
+import Brush from "../class/Brush.js"
+import { brush } from "../components/brush.js"
+
+export function createBrush(id){
+
+    return localStorage[id] != undefined ? createBrushByBackup(id) : createPatternBrush(id)
+
+}
+
+export function createPatternBrush(id){
+
+    const brushObject = new Brush(id)
+    const brushElement = brush(brushObject)
+
+    localStorage.setItem(id , JSON.stringify(brushObject))
+    
+    return brushElement
+
+}
+
+export function createBrushByBackup(id){
+
+    const brushObject = JSON.parse(localStorage.getItem(id))
+
+    const brushElement = brush(brushObject)
+
+    return brushElement
+
+}
+
+export function saveBrush(brush){
+
+    const brushObject = new Brush(
+
+        brush.id,
+        brush.colorMain,
+        brush.colorAuxiliary,
+        brush.side
+
+    )
+
+    localStorage.setItem(brush.id, JSON.stringify(brushObject))
+
+}
 
 export function brushUpdatePositionByMouse(event, brush){
 
@@ -10,40 +54,15 @@ export function brushUpdatePositionByMouse(event, brush){
 
 }
 
-export function brushUpdateColorMainBySelectorMain(brush, colorSelectorMain){
+export function brushAddPixelInPaintingAndMakeBackup(painting, brush){
 
-    colorSelectorMain.addEventListener(`input`, () => {
+    const pixel = brushCreatePixel(painting, brush)
 
-        brush.colorMain = colorSelectorMain.value
-
-     })
-}
-
-export function brushUpdateColorAuxiliaryBySelectorAuxiliary(brush, colorSelectorAuxiliary){
-
-    colorSelectorAuxiliary.addEventListener(`input`, () => {
-
-        brush.colorAuxiliary = colorSelectorAuxiliary.value
-
-     })
-}
-
-export function brushUpdateColorsBySelectors(brush, colorSelectorMain, colorSelectorAuxiliary){
-
-    brushUpdateColorMainBySelectorMain(brush, colorSelectorMain)
-    brushUpdateColorAuxiliaryBySelectorAuxiliary(brush, colorSelectorAuxiliary)
+    addPixelInPaintingAndInBackup(painting, pixel)
 
 }
 
-export function brushAddPixelInPaintings(brush, paintingArray, painting){
-
-    const pixel = brushCreatePixel(brush, painting)
-
-    addPixelInPaintings(pixel, paintingArray, painting)
-
-}
-
-export function brushCreatePixel(brush, painting){
+export function brushCreatePixel(painting, brush){
 
     const color = brush.style.backgroundColor
 

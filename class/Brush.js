@@ -8,8 +8,9 @@ export default class Brush {
         colorMain = `#000000`,
         colorAuxiliary = `#FFFFFF`,
 
-        width = 1,
-        height = 1,
+        side = 1,
+
+        isDown = false,
         
         ){
         
@@ -19,8 +20,9 @@ export default class Brush {
         this.colorAuxiliary = colorAuxiliary
         this.colorUsed = this.colorMain
 
-        this.width = width
-        this.height = height
+        this.side = side
+
+        this.isDown = isDown
 
     }
 
