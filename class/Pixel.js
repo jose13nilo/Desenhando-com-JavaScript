@@ -8,8 +8,6 @@ export default class Pixel {
         top
         
     ){
-        
-        this.id = left+` `+top
 
         this.color = color
 

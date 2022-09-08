@@ -1,17 +1,18 @@
-import { numberToPixel } from "../functions/numbersAndPixels.js"
 
-export function colorSelector(id){
+export default function inputColor(id){
 
-    const colorSelector = document.createElement(`input`)
+    const inputColor = document.createElement(`input`)
 
-    colorSelector.id = id
+    inputColor.className = `InputColor`
+    inputColor.id = id + inputColor.className
 
-    colorSelector.type = `color`
+    inputColor.type = `color`
 
-    colorSelector.style.width = numberToPixel(20)
-    colorSelector.style.height = colorSelector.style.width
+    inputColor.style.width = `20px`
+    inputColor.style.height = inputColor.style.width
 
-    colorSelector.style.borderRadius = `25%`
+    inputColor.style.borderRadius = `25%`
 
-    return colorSelector
+    return inputColor
+
 }

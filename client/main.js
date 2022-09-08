@@ -1,8 +1,7 @@
 
 import body from "../components/body.js";
 
-import { buttonResetPainting } from "../components/buttonResetPainting.js";
-import { colorSelector } from "../components/colorSelector.js";
+import createUtilityBar from "../components/utilityBar.js";
 import { onColorsSelectorsTraceColorsBrushAndBackup } from "../events/colorSelectorTraceColorBrush.js";
 
 import { onDrawnInPaintingWithBrush } from "../events/drawInPaintingWithBrush.js";
@@ -11,35 +10,20 @@ import { onResetPaintingWithOnClick } from "../events/resetPaintingWithOnClick.j
 import { createBrush } from "../functions/operationsWinthBrush.js";
 import { createPainting } from "../functions/operationsWithPainting.js";
 
-const tela = createPainting(`paintingMain`)
+const [utilityBar, buttonReset, mainPalette, auxiliaryPalette] = createUtilityBar(`main`)
+
+body.appendChild(utilityBar)
+
+const tela = createPainting(`nilo`)
 
 body.appendChild(tela)
 
-const pincel = createBrush(`brushMain`)
-
-body.appendChild(pincel)
+const pincel = createBrush(`main`)
 
 onDrawnInPaintingWithBrush(tela, pincel)
 
-const div = document.createElement(`div`)
+onResetPaintingWithOnClick(tela, buttonReset)
 
-div.style.position = `absolute`
+onColorsSelectorsTraceColorsBrushAndBackup(pincel, mainPalette, auxiliaryPalette)
 
-div.style.left = `10px`
-div.style.top = div.style.left
-
-const botaoReset = buttonResetPainting(`buttonResetPaintingMain`)
-
-div.appendChild(botaoReset)
-
-onResetPaintingWithOnClick(tela, botaoReset)
-
-const paleta = colorSelector(`colorMain`)
-const paleta2 = colorSelector(`colorAuxiliary`)
-
-onColorsSelectorsTraceColorsBrushAndBackup(pincel, paleta, paleta2)
-
-div.appendChild(paleta)
-div.appendChild(paleta2)
-
-body.appendChild(div)
+body.appendChild(utilityBar)

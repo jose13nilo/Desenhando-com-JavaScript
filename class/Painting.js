@@ -5,11 +5,11 @@ export default class Painting{
 
         id,
 
-        color = `white`,
+        side = 100,
 
-        side = 0,
+        scale = 5,
 
-        scale = 1,
+        color = `rgba(255, 255, 255, 0.85)`,
 
         pixels = []
         

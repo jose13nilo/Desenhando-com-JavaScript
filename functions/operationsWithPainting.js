@@ -4,6 +4,8 @@ import { addPixelInPainting } from "./operationsWithPixel.js"
 
 export function createPainting(id){
 
+    id = `${id}Painting`
+
     const paintingElement = localStorage[id] != undefined ? createPaintingByBackup(id) : createPatternPainting(id)
 
     return paintingElement
@@ -12,7 +14,7 @@ export function createPainting(id){
 
 export function createPatternPainting(id){
     
-    const paintingObject = new Painting(id, `gray`, 100, 5)
+    const paintingObject = new Painting(id)
 
     localStorage.setItem(id , JSON.stringify(paintingObject))
 

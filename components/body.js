@@ -10,13 +10,14 @@ const body = () => {
 
     body.style.margin = '0px'
 
-    body.style.backgroundColor = `#162026`
+    body.style.backgroundColor = `rgba(0, 0, 0, 0.95)`
 
     body.style.display = `flex`
     body.style.alignItems = `center`
     body.style.justifyContent = `center`
 
     return body
+    
 }
 
 export default body()

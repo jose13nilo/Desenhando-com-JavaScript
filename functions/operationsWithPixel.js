@@ -20,7 +20,7 @@ export function addPixelInBackup(painting, pixel){
 
     const paintingObject = JSON.parse(localStorage.getItem(painting.id))
 
-    paintingObject.pixels = removePixelSomeId(pixel, paintingObject.pixels)
+    paintingObject.pixels = removePixelInEqualPlace(pixel, paintingObject.pixels)
 
     paintingObject.pixels.push(pixel)
 
@@ -28,11 +28,11 @@ export function addPixelInBackup(painting, pixel){
 
 }
 
-export function removePixelSomeId(pixel, pixels){
+export function removePixelInEqualPlace(pixel, pixels){
 
     for( let index in pixels ){
 
-        if(pixels[index].id == pixel.id){
+        if(pixels[index].left == pixel.left && pixels[index].top == pixel.top){
 
             pixels.splice(index, 1)
 

@@ -1,33 +1,50 @@
 
-import { brushAddPixelInPaintingAndMakeBackup, brushUpdatePositionByMouse } from "../functions/operationsWinthBrush.js"
+import Pixel from "../class/Pixel.js"
+import { addPixelInPaintingAndInBackup } from "../functions/operationsWithPixel.js"
 
 export function onDrawnInPaintingWithBrush(painting, brush){
 
+    let canDrawn = false
+    let color
+
+    function drawn(painting,  event){
+
+        const rect = painting.getBoundingClientRect()
+    
+        const x = parseInt((event.clientX - rect.left)/painting.scale)
+        const y = parseInt((event.clientY - rect.top)/painting.scale)
+    
+        const pixel = new Pixel(color, x, y)
+    
+        addPixelInPaintingAndInBackup(painting, pixel)
+    
+    }
+
     painting.onmousedown = (event) => {
 
-        if(!brush.isDown){
+        if(!canDrawn){
 
-            brush.isDown = true
+            canDrawn = true
 
         }
 
-        brush.style.backgroundColor = event.buttons == 1 ? brush.colorMain : brush.colorAuxiliary
+        color = event.buttons == 1 ? brush.colorMain : brush.colorAuxiliary
 
-        brushUpdatePositionByMouse(event, brush)
-        
-        brushAddPixelInPaintingAndMakeBackup(painting, brush)
+        drawn(painting, event)
 
     }
 
-    document.onmouseup = () => { brush.isDown = false }
+    document.onmouseup = () => { canDrawn = false }
 
     painting.onmousemove = (event) => {
     
-        if(brush.isDown){
+        if(canDrawn){
 
-            brushUpdatePositionByMouse(event, brush)
-            brushAddPixelInPaintingAndMakeBackup(painting, brush)
+            drawn(painting, event)
     
+        }else{
+
+            
         }
 
     }
@@ -37,15 +54,5 @@ export function onDrawnInPaintingWithBrush(painting, brush){
         event.preventDefault()
         
     }
-
-}
-
-export function offDrawnInPaintingWithBrush(painting){
-
-    painting.onmousedown = null
-
-    document.onmouseup = null
-    
-    painting.onmousemove = null
 
 }

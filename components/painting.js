@@ -1,12 +1,11 @@
 
-import { numberToPixel } from "../functions/numbersAndPixels.js"
 
 export function painting(paintingObject){
 
     const painting = document.createElement(`canvas`)
 
-    painting.style.width = numberToPixel(paintingObject.side*paintingObject.scale)
-    painting.style.height = numberToPixel(paintingObject.side*paintingObject.scale)
+    painting.style.width = paintingObject.side*paintingObject.scale + `px`
+    painting.style.height = paintingObject.side*paintingObject.scale + `px`
 
     painting.style.backgroundColor = paintingObject.color
 
@@ -14,6 +13,8 @@ export function painting(paintingObject){
 
     painting.height = paintingObject.side
     painting.width = paintingObject.side
+
+    painting.className = `Painting`
 
     painting.id = paintingObject.id
 

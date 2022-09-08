@@ -1,7 +1,7 @@
 
 import { numberToPixel } from "../functions/numbersAndPixels.js";
 
-export function buttonResetPainting(id){
+export function button(id){
 
     const button = document.createElement(`button`)
 
