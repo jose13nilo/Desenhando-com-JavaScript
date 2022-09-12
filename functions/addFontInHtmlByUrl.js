@@ -1,14 +1,14 @@
 
-export default function addFontInHtmlByUrl(url){
+export default function addFontInHtmlByUrl( url ){
 
-    const link = document.createElement(`link`)
+    const link = document.createElement( `link` )
 
-    link.setAttribute(`rel`, `stylesheet`)
+    link.setAttribute( `rel`, `stylesheet` )
 
-    link.setAttribute(`type`, `text/css`)
+    link.setAttribute( `type`, `text/css` )
 
-    link.setAttribute(`href`, url)
+    link.setAttribute( `href`, url )
 
-    document.head.appendChild(link);
+    document.head.appendChild( link );
 
 }

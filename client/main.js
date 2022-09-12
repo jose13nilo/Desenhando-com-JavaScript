@@ -1,29 +1,30 @@
 
-import body from "../components/body.js";
+import formatAndReturnBody from "../components/body.js";
 
-import createUtilityBar from "../components/utilityBar.js";
-import { onColorsSelectorsTraceColorsBrushAndBackup } from "../events/colorSelectorTraceColorBrush.js";
+import createHeader from "../components/header.js";
 
-import { onDrawnInPaintingWithBrush } from "../events/drawInPaintingWithBrush.js";
-import { onResetPaintingWithOnClick } from "../events/resetPaintingWithOnClick.js";
+import getOrMakePaintingAndBackup, { onDrawnInPaintingWithBrush } from "../components/painting.js";
+import { onChangeColorsBrushByPalletes } from "../components/palletes.js";
+import getOrMakeBrushIdAndBackup from "../components/brush.js";
+import { onClearPaintingAndBackupByClick } from "../components/buttonReset.js";
 
-import { createBrush } from "../functions/operationsWinthBrush.js";
-import { createPainting } from "../functions/operationsWithPainting.js";
 
-const [utilityBar, buttonReset, mainPalette, auxiliaryPalette] = createUtilityBar(`main`)
+const body = formatAndReturnBody()
 
-body.appendChild(utilityBar)
+const header = createHeader(`main`)
 
-const tela = createPainting(`nilo`)
+const painting = getOrMakePaintingAndBackup(`main`)
 
-body.appendChild(tela)
+const brushId = getOrMakeBrushIdAndBackup(`main`)
 
-const pincel = createBrush(`main`)
+const palletes = header.querySelector( `.Palletes` )
 
-onDrawnInPaintingWithBrush(tela, pincel)
+const buttonReset = header.querySelector( `.ButtonReset` )
 
-onResetPaintingWithOnClick(tela, buttonReset)
+onDrawnInPaintingWithBrush( painting, brushId )
+onChangeColorsBrushByPalletes( brushId, palletes )
+onClearPaintingAndBackupByClick( painting, buttonReset )
 
-onColorsSelectorsTraceColorsBrushAndBackup(pincel, mainPalette, auxiliaryPalette)
+body.appendChild(header)
 
-body.appendChild(utilityBar)
+body.appendChild(painting)

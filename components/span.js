@@ -1,11 +1,13 @@
 
-export default function createSpan(string){
+export default function createSpan( id, string ){
 
-    const span = document.createElement(`span`)
+    const span = document.createElement( `span` )
 
-    const text = document.createTextNode(string)
+    span.id = `${ id }Span`
 
-    span.appendChild(text)
+    const text = document.createTextNode( string )
+
+    span.appendChild( text )
 
     return span
 

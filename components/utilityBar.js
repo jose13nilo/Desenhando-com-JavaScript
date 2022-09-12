@@ -1,48 +1,35 @@
 
+import createButtonReset from "./buttonReset.js"
+import createPalletes from "./palletes.js"
 
-import { button } from "./button.js"
-import colorSelector from "./colorSelector.js"
-import createLogo from "./logo.js"
+export default function createUtilityBar( id ) {
 
-export default function createUtilityBar(id) {
+    const div = document.createElement( `div` )
 
-    const div = document.createElement(`div`)
-
-    div.id = `${id}UtilityBar`
     div.className = `UtilityBar`
 
-    div.style.width = `100%`
-    div.style.height = `8%`
+    id = `${ id }UtilityBar`
 
-    div.style.backgroundColor = `rgba(0, 0, 0, 1)`
-
-    div.style.left = `0px`
-    div.style.top = `0px`
-
-    div.style.position = `absolute`
+    div.id = id
 
     div.style.display = `flex`
+    div.style.justifyContent = `space-between`
     div.style.alignItems = `center`
+
+    div.style.marginInline = `10px`
+
+    div.style.width = `100%`
 
     div.style.zIndex = 2
 
-    const logo = createLogo(`${id}LogoUtilityBar`)
+    const buttonReset = createButtonReset( id )
 
-    logo.style.width = `20%`
-    logo.style.height = `100%`
+    div.appendChild( buttonReset )
 
-    div.appendChild(logo)
+    const palletes = createPalletes( id )
 
-    const buttonReset = button(`${id}ButtonReset`)
+    div.appendChild( palletes )
 
-    div.appendChild(buttonReset)
-
-    const mainPalette = colorSelector(`${id}ColorMain`)
-    const auxiliaryPalette = colorSelector(`${id}ColorAuxiliary`)
-
-    div.appendChild(mainPalette)
-    div.appendChild(auxiliaryPalette)
-
-    return [div, buttonReset, mainPalette, auxiliaryPalette]
+    return div
 
 }

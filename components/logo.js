@@ -2,9 +2,9 @@
 import addFontInHtmlByUrl from "../functions/addFontInHtmlByUrl.js"
 import createSpan  from "./span.js"
 
-export default function createLogo (id) {
+export default function createLogo ( id ) {
 
-    const div = document.createElement(`div`)
+    const div = document.createElement( `div` )
 
     div.className = `Logo`
     div.id = id + div.className
@@ -13,9 +13,8 @@ export default function createLogo (id) {
 
     div.style.display = `flex`
     div.style.alignItems = `center`
-    div.style.justifyContent = `center`
 
-    const span = createSpan(`Polixel`)
+    const span = createSpan( id, `Polixel` )
 
     addFontInHtmlByUrl(`https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap`)
 
